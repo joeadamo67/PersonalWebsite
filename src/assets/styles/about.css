@@ -107,6 +107,11 @@
     box-shadow: var(--shadow-md);
   }
   
+  .value-card em {
+    font-weight: bold;
+    font-style: normal; 
+  }
+  
   .value-card h3 {
     color: var(--primary-dark);
     margin-bottom: var(--spacing-sm);

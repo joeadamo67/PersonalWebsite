@@ -39,3 +39,6 @@ ui-debug.log
 
 # OS files
 Thumbs.db
+
+#User Added
+/src/assets/images

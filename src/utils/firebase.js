@@ -1,75 +1,22 @@
-// Mock Firebase services for development
-console.log("Using mock Firebase services for development");
+// Firebase configuration
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
-// Mock data
-const mockData = {
-  'post1': {
-    title: "Getting Started with React",
-    content: "React is a popular JavaScript library for building user interfaces.",
-    createdAt: { toDate: () => new Date('2025-02-15') },
-    tags: ["React", "JavaScript"],
-    featuredImage: "https://placehold.co/600x400",
-    authorName: "Developer"
-  },
-  'post2': {
-    title: "Firebase Authentication Guide",
-    content: "Firebase Authentication provides backend services for authentication.",
-    createdAt: { toDate: () => new Date('2025-02-10') },
-    tags: ["Firebase", "Authentication"],
-    featuredImage: "https://placehold.co/600x400",
-    authorName: "Developer"
-  }
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyDummyKeyForDevelopment",
+  authDomain: "ja-network-167ac.firebaseapp.com",
+  projectId: "ja-network-167ac",
+  storageBucket: "ja-network-167ac.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef1234567890"
 };
 
-// Mock Firestore
-const db = {
-  collection: () => ({
-    doc: (id) => ({
-      get: () => Promise.resolve({
-        exists: () => mockData[id] ? true : false,
-        id: id,
-        data: () => mockData[id] || {}
-      }),
-      set: () => Promise.resolve()
-    }),
-    add: () => Promise.resolve({ id: 'new-doc-id' }),
-    where: () => ({
-      get: () => Promise.resolve({
-        docs: Object.entries(mockData).map(([id, data]) => ({
-          id,
-          data: () => data
-        }))
-      })
-    }),
-    orderBy: () => ({
-      get: () => Promise.resolve({
-        docs: Object.entries(mockData).map(([id, data]) => ({
-          id,
-          data: () => data
-        }))
-      })
-    })
-  })
-};
+// Initialize Firebase services
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-// Mock Auth
-const auth = {
-  currentUser: null,
-  onAuthStateChanged: (callback) => {
-    callback(null);
-    return () => {};
-  },
-  signInWithEmailAndPassword: () => Promise.resolve({ user: { uid: 'mock-user-id' } }),
-  signOut: () => Promise.resolve()
-};
-
-// Mock Storage
-const storage = {
-  ref: () => ({
-    put: () => Promise.resolve(),
-    getDownloadURL: () => Promise.resolve('https://placehold.co/600x400')
-  })
-};
-
-// Export mock services
 export { db, auth, storage };
