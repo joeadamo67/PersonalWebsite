@@ -21,7 +21,7 @@ const BlogDetail = () => {
           setPost({
             id: postSnapshot.id,
             ...postSnapshot.data(),
-            createdAt: postSnapshot.data().createdAt.toDate()
+            createdAt: postSnapshot.data().createdAt?.toDate?.() || new Date()
           });
         } else {
           setError('Post not found');
@@ -139,3 +139,6 @@ const BlogDetail = () => {
       </article>
     </div>
   );
+};
+
+export default BlogDetail;

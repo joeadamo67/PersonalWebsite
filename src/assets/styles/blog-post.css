@@ -1,0 +1,106 @@
+/* Blog Post Card Styles */
+.blog-post-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .post-image {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+  }
+  
+  .post-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+  }
+  
+  .blog-post-card:hover .post-image img {
+    transform: scale(1.05);
+  }
+  
+  .post-content {
+    padding: var(--spacing-md);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .post-title a {
+    color: var(--dark);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .post-title a:hover {
+    color: var(--primary-dark);
+  }
+  
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.875rem;
+    color: var(--medium);
+  }
+  
+  .post-date {
+    font-style: italic;
+  }
+  
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+  
+  .tag {
+    background-color: var(--accent);
+    color: var(--dark);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+  }
+  
+  .post-excerpt {
+    margin-bottom: var(--spacing-md);
+    color: var(--dark);
+    flex-grow: 1;
+  }
+  
+  .read-more {
+    align-self: flex-start;
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .read-more:hover {
+    color: var(--primary);
+  }

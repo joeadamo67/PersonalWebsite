@@ -19,11 +19,6 @@ const Footer = () => {
               <p><i className="icon-email"></i> your.email@example.com</p>
               <p><i className="icon-location"></i> City, Country</p>
             </div>
-    </footer>
-  );
-};
-
-export default Footer;>
           </div>
           
           <div className="footer-section links">
@@ -55,4 +50,9 @@ export default Footer;>
         <div className="footer-bottom">
           <p>&copy; {currentYear} Your Name. All rights reserved.</p>
         </div>
-      </div
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
