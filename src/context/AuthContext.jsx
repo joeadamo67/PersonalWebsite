@@ -1,12 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { auth } from '../utils/firebase';
-import { 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged 
-} from 'firebase/auth';
 
-// Create context
+// Create Auth context
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -14,35 +8,58 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // Login function
+  // Simplified mock login function (for development)
   const login = async (email, password) => {
     try {
       setError('');
-      await signInWithEmailAndPassword(auth, email, password);
+      console.log(`Development login with: ${email}`);
+      
+      // For development, accept any email/password with basic validation
+      if (!email || !password) {
+        setError('Email and password are required');
+        return;
+      }
+      
+      // Create mock user for development
+      const mockUser = {
+        uid: 'dev-user-1',
+        email: email,
+        displayName: 'Development User'
+      };
+      
+      // Store in localStorage for persistence
+      localStorage.setItem('dev-auth-user', JSON.stringify(mockUser));
+      setCurrentUser(mockUser);
+      
+      return mockUser;
     } catch (err) {
+      console.error('Login error:', err);
       setError('Failed to sign in. Please check your credentials.');
-      console.error(err);
     }
   };
   
-  // Logout function
+  // Simplified logout function
   const logout = async () => {
     try {
-      await signOut(auth);
+      localStorage.removeItem('dev-auth-user');
+      setCurrentUser(null);
     } catch (err) {
       console.error('Failed to log out:', err);
     }
   };
   
-  // Set up an observer for authentication state changes
+  // Check for stored user on initial load
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    try {
+      const storedUser = localStorage.getItem('dev-auth-user');
+      if (storedUser) {
+        setCurrentUser(JSON.parse(storedUser));
+      }
+    } catch (err) {
+      console.error('Error restoring auth state:', err);
+    } finally {
       setLoading(false);
-    });
-    
-    // Clean up subscription
-    return unsubscribe;
+    }
   }, []);
   
   const value = {
